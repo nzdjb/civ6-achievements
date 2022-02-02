@@ -3,6 +3,7 @@ from json import loads, dumps
 from os import getenv
 
 from flask import Flask
+from flask_cors import cross_origin
 from funcy import omit
 import requests
 
@@ -12,6 +13,7 @@ def create_app():
     app = Flask(__name__)
 
     @app.route('/achievements/<steam_id>')
+    @cross_origin()
     def user(steam_id):
         api = API_BASE + 'ISteamUserStats/GetPlayerAchievements/v0001'
         user_resp = requests.get(api, params=params() | {'steamid': steam_id})

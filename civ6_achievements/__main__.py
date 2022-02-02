@@ -21,7 +21,8 @@ def create_app():
             api = API_BASE + 'ISteamUserStats/GetPlayerAchievements/v0001'
             user_resp = requests.get(api, params=params() | {'steamid': steam_id})
             player_data = create_map('apiname', loads(user_resp.text).get('playerstats').get('achievements'))
-        return dumps([v | STATS_MAP[k] | player_data.get(k, {}) for k, v in SCHEMA_MAP.items()])
+        return dumps([{'apiname': k} | v | STATS_MAP[k] | player_data.get(k, {}) for k, v in SCHEMA_MAP.items()])
+
 
         return dumps(data)
 

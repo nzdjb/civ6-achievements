@@ -27,19 +27,23 @@ def schema_map():
     api = API_BASE + 'ISteamUserStats/GetSchemaForGame/v0002'
     schema_resp = requests.get(api, params=params())
     schema = loads(schema_resp.text).get('game').get('availableGameStats').get('achievements')
-    return {entry['name']: omit(entry, 'name') for entry in schema}
+    return create_map('name', schema)
 
 def stats_map():
     api = API_BASE + "ISteamUserStats/GetGlobalAchievementPercentagesForApp/v0002"
     stats_resp = requests.get(api, params={'gameid': APP_ID})
     stats = loads(stats_resp.text).get('achievementpercentages').get('achievements')
-    return {entry['name']: omit(entry, 'name') for entry in stats}
+    return create_map('name', stats)
 
 def params():
     return {
         'key': STEAM_API_KEY,
         'appid': APP_ID
     }
+
+
+def create_map(index, list):
+    return {entry[index]: omit(entry, index) for entry in list}
 
 API_BASE = 'http://api.steampowered.com/'
 APP_ID = '289070'

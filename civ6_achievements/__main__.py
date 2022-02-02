@@ -12,13 +12,17 @@ def create_app():
     """Create app"""
     app = Flask(__name__)
 
-    @app.route('/achievements/<steam_id>')
+    @app.route('/achievements', strict_slashes=False)
+    @app.route('/achievements/<int:steam_id>')
     @cross_origin()
-    def user(steam_id):
-        api = API_BASE + 'ISteamUserStats/GetPlayerAchievements/v0001'
-        user_resp = requests.get(api, params=params() | {'steamid': steam_id})
-        data = loads(user_resp.text).get('playerstats').get('achievements')
-        data = [entry | SCHEMA_MAP[entry['apiname']] | STATS_MAP[entry['apiname']] for entry in data]
+    def achievements(steam_id=None):
+        player_data = {}
+        if(is_valid_user(steam_id)):
+            api = API_BASE + 'ISteamUserStats/GetPlayerAchievements/v0001'
+            user_resp = requests.get(api, params=params() | {'steamid': steam_id})
+            player_data = create_map('apiname', loads(user_resp.text).get('playerstats').get('achievements'))
+        return dumps([v | STATS_MAP[k] | player_data.get(k, {}) for k, v in SCHEMA_MAP.items()])
+
         return dumps(data)
 
     return app
@@ -41,6 +45,8 @@ def params():
         'appid': APP_ID
     }
 
+def is_valid_user(user):
+    return user != None
 
 def create_map(index, list):
     return {entry[index]: omit(entry, index) for entry in list}

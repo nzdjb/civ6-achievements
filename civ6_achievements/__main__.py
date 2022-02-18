@@ -23,9 +23,6 @@ def create_app():
             player_data = create_map('apiname', loads(user_resp.text).get('playerstats').get('achievements'))
         return dumps([{'apiname': k} | v | STATS_MAP[k] | player_data.get(k, {}) for k, v in SCHEMA_MAP.items()])
 
-
-        return dumps(data)
-
     return app
 
 def schema_map():

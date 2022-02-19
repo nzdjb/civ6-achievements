@@ -12,16 +12,16 @@ def create_app():
     """Create app"""
     app = Flask(__name__)
 
-    @app.route('/achievements', strict_slashes=False)
-    @app.route('/achievements/<int:steam_id>')
+    @app.route('/achievements/<int:app_id>', strict_slashes=False)
+    @app.route('/achievements/<int:app_id>/<int:steam_id>', strict_slashes=False)
     @cross_origin()
-    def achievements(steam_id=None):
+    def achievements(app_id, steam_id=None):
         player_data = {}
         if(is_valid_user(steam_id)):
             api = API_BASE + 'ISteamUserStats/GetPlayerAchievements/v0001'
-            user_resp = requests.get(api, params=params(APP_ID) | {'steamid': steam_id})
+            user_resp = requests.get(api, params=params(app_id) | {'steamid': steam_id})
             player_data = create_map('apiname', loads(user_resp.text).get('playerstats').get('achievements'))
-        return dumps([{'apiname': k} | v | STATS_MAP[k] | player_data.get(k, {}) for k, v in SCHEMA_MAP.items()])
+        return dumps([{'apiname': k} | v | stats_map(app_id)[k] | player_data.get(k, {}) for k, v in schema_map(app_id).items()])
 
     return app
 
@@ -50,7 +50,4 @@ def create_map(index, list):
     return {entry[index]: omit(entry, index) for entry in list}
 
 API_BASE = 'http://api.steampowered.com/'
-APP_ID = '289070'
 STEAM_API_KEY = getenv('STEAM_API_KEY')
-SCHEMA_MAP = schema_map(APP_ID)
-STATS_MAP = stats_map(APP_ID)

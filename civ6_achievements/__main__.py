@@ -2,6 +2,8 @@
 from json import loads, dumps
 from os import getenv
 
+from functools import cache
+
 from flask import Flask
 from flask_cors import cross_origin
 from funcy import omit
@@ -25,12 +27,14 @@ def create_app():
 
     return app
 
+@cache
 def schema_map(app_id):
     api = API_BASE + 'ISteamUserStats/GetSchemaForGame/v0002'
     schema_resp = requests.get(api, params=params(app_id))
     schema = loads(schema_resp.text).get('game').get('availableGameStats').get('achievements')
     return create_map('name', schema)
 
+@cache
 def stats_map(app_id):
     api = API_BASE + "ISteamUserStats/GetGlobalAchievementPercentagesForApp/v0002"
     stats_resp = requests.get(api, params={'gameid': app_id})

@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "civ6-achievements"
+name = "steam-achievements"
 version = "0.1.0"
 description = ""
 authors = ["nzdjb <github@2a1b.com>"]

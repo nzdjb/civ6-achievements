@@ -1,0 +1,194 @@
+[[package]]
+name = "attrs"
+version = "21.4.0"
+description = "Classes Without Boilerplate"
+category = "dev"
+optional = false
+python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
+
+[package.extras]
+dev = ["coverage[toml] (>=5.0.2)", "hypothesis", "pympler", "pytest (>=4.3.0)", "six", "mypy", "pytest-mypy-plugins", "zope.interface", "furo", "sphinx", "sphinx-notfound-page", "pre-commit", "cloudpickle"]
+docs = ["furo", "sphinx", "zope.interface", "sphinx-notfound-page"]
+tests = ["coverage[toml] (>=5.0.2)", "hypothesis", "pympler", "pytest (>=4.3.0)", "six", "mypy", "pytest-mypy-plugins", "zope.interface", "cloudpickle"]
+tests_no_zope = ["coverage[toml] (>=5.0.2)", "hypothesis", "pympler", "pytest (>=4.3.0)", "six", "mypy", "pytest-mypy-plugins", "cloudpickle"]
+
+[[package]]
+name = "aws-cdk-lib"
+version = "2.24.1"
+description = "Version 2 of the AWS Cloud Development Kit library"
+category = "dev"
+optional = false
+python-versions = "~=3.7"
+
+[package.dependencies]
+constructs = ">=10.0.0,<11.0.0"
+jsii = ">=1.58.0,<2.0.0"
+publication = ">=0.0.3"
+
+[[package]]
+name = "aws-cdk.aws-apigatewayv2-alpha"
+version = "2.24.1a0"
+description = "The CDK Construct Library for AWS::APIGatewayv2"
+category = "dev"
+optional = false
+python-versions = "~=3.7"
+
+[package.dependencies]
+aws-cdk-lib = ">=2.24.1,<3.0.0"
+constructs = ">=10.0.0,<11.0.0"
+jsii = ">=1.58.0,<2.0.0"
+publication = ">=0.0.3"
+
+[[package]]
+name = "aws-cdk.aws-apigatewayv2-integrations-alpha"
+version = "2.24.1a0"
+description = "Integrations for AWS APIGateway V2"
+category = "dev"
+optional = false
+python-versions = "~=3.7"
+
+[package.dependencies]
+aws-cdk-lib = ">=2.24.1,<3.0.0"
+"aws-cdk.aws-apigatewayv2-alpha" = "2.24.1.a0"
+constructs = ">=10.0.0,<11.0.0"
+jsii = ">=1.58.0,<2.0.0"
+publication = ">=0.0.3"
+
+[[package]]
+name = "cattrs"
+version = "22.1.0"
+description = "Composable complex class support for attrs and dataclasses."
+category = "dev"
+optional = false
+python-versions = ">=3.7,<4.0"
+
+[package.dependencies]
+attrs = ">=20"
+exceptiongroup = {version = "*", markers = "python_version <= \"3.10\""}
+
+[[package]]
+name = "constructs"
+version = "10.1.7"
+description = "A programming model for software-defined state"
+category = "dev"
+optional = false
+python-versions = "~=3.7"
+
+[package.dependencies]
+jsii = ">=1.58.0,<2.0.0"
+publication = ">=0.0.3"
+
+[[package]]
+name = "exceptiongroup"
+version = "1.0.0rc5"
+description = "Backport of PEP 654 (exception groups)"
+category = "main"
+optional = false
+python-versions = ">=3.7"
+
+[package.extras]
+test = ["pytest (>=6)"]
+
+[[package]]
+name = "jsii"
+version = "1.58.0"
+description = "Python client for jsii runtime"
+category = "dev"
+optional = false
+python-versions = "~=3.7"
+
+[package.dependencies]
+attrs = ">=21.2,<22.0"
+cattrs = ">=1.8,<22.2"
+python-dateutil = "*"
+typing-extensions = ">=3.7,<5.0"
+
+[[package]]
+name = "publication"
+version = "0.0.3"
+description = "Publication helps you maintain public-api-friendly modules by preventing unintentional access to private implementation details via introspection."
+category = "dev"
+optional = false
+python-versions = "*"
+
+[[package]]
+name = "python-dateutil"
+version = "2.8.2"
+description = "Extensions to the standard Python datetime module"
+category = "dev"
+optional = false
+python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,>=2.7"
+
+[package.dependencies]
+six = ">=1.5"
+
+[[package]]
+name = "six"
+version = "1.16.0"
+description = "Python 2 and 3 compatibility utilities"
+category = "dev"
+optional = false
+python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*"
+
+[[package]]
+name = "typing-extensions"
+version = "4.2.0"
+description = "Backported and Experimental Type Hints for Python 3.7+"
+category = "dev"
+optional = false
+python-versions = ">=3.7"
+
+[metadata]
+lock-version = "1.1"
+python-versions = "^3.10"
+content-hash = "259e372a3b896cc8796354f8d32412e3989c5a582f32b522826c78597c60efa3"
+
+[metadata.files]
+attrs = [
+    {file = "attrs-21.4.0-py2.py3-none-any.whl", hash = "sha256:2d27e3784d7a565d36ab851fe94887c5eccd6a463168875832a1be79c82828b4"},
+    {file = "attrs-21.4.0.tar.gz", hash = "sha256:626ba8234211db98e869df76230a137c4c40a12d72445c45d5f5b716f076e2fd"},
+]
+aws-cdk-lib = [
+    {file = "aws-cdk-lib-2.24.1.tar.gz", hash = "sha256:0ac1fa6bb90a8433ae5e9f3a13c369f9ac39d1347c8399ca2f6d242a888c841d"},
+    {file = "aws_cdk_lib-2.24.1-py3-none-any.whl", hash = "sha256:bf349fba338926eb6dc27719ca504771a262b9831e45e1acf6d924b41e38b7fe"},
+]
+"aws-cdk.aws-apigatewayv2-alpha" = [
+    {file = "aws-cdk.aws-apigatewayv2-alpha-2.24.1a0.tar.gz", hash = "sha256:29416269abe89c7afa423fc981cc06e5a77a98736e4915ace6d852f8d41e955f"},
+    {file = "aws_cdk.aws_apigatewayv2_alpha-2.24.1a0-py3-none-any.whl", hash = "sha256:17b9a647755b19f6a2f394012343af80b61146d62d4c0bd42ee0880ec3a4d1ba"},
+]
+"aws-cdk.aws-apigatewayv2-integrations-alpha" = [
+    {file = "aws-cdk.aws-apigatewayv2-integrations-alpha-2.24.1a0.tar.gz", hash = "sha256:28c0cdcd70f020515a6b9f47d2f0ca618c2ea8634698b9efd68592c1f6b35bbb"},
+    {file = "aws_cdk.aws_apigatewayv2_integrations_alpha-2.24.1a0-py3-none-any.whl", hash = "sha256:1ad4c4119956bb23efb71a5d3eccb12bfe6cc461d0eaa1ca6a845205bf2a6c62"},
+]
+cattrs = [
+    {file = "cattrs-22.1.0-py3-none-any.whl", hash = "sha256:d55c477b4672f93606e992049f15d526dc7867e6c756cd6256d4af92e2b1e364"},
+    {file = "cattrs-22.1.0.tar.gz", hash = "sha256:94b67b64cf92c994f8784c40c082177dc916e0489a73a9a36b24eb18a9db40c6"},
+]
+constructs = [
+    {file = "constructs-10.1.7-py3-none-any.whl", hash = "sha256:d94ba603f23e30cce98b30067ef95147f32285591d41fdbfbc9ab15fb1c40762"},
+    {file = "constructs-10.1.7.tar.gz", hash = "sha256:e2f8d906c68fac3af878ceceb69d8f76945e8727c875fc7dab81640dad1cb1f2"},
+]
+exceptiongroup = [
+    {file = "exceptiongroup-1.0.0rc5-py3-none-any.whl", hash = "sha256:295a9d7847f9ad08267f47c701a676ec70a64200a360dd49eb513f72209b09f4"},
+    {file = "exceptiongroup-1.0.0rc5.tar.gz", hash = "sha256:665422550b9653acd46e9cd35d933f28c5158ca4c058c53619cfa112915cd69e"},
+]
+jsii = [
+    {file = "jsii-1.58.0-py3-none-any.whl", hash = "sha256:21830c2dfe5197272dec9bf228d0e8493fdc9ca4501aeec8ce0cc38b2e9dd810"},
+    {file = "jsii-1.58.0.tar.gz", hash = "sha256:e4c3d38e92d837bce132d3fc4b3f2ed4fa9e036cf8aa2ab9be13bb89df1f0441"},
+]
+publication = [
+    {file = "publication-0.0.3-py2.py3-none-any.whl", hash = "sha256:0248885351febc11d8a1098d5c8e3ab2dabcf3e8c0c96db1e17ecd12b53afbe6"},
+    {file = "publication-0.0.3.tar.gz", hash = "sha256:68416a0de76dddcdd2930d1c8ef853a743cc96c82416c4e4d3b5d901c6276dc4"},
+]
+python-dateutil = [
+    {file = "python-dateutil-2.8.2.tar.gz", hash = "sha256:0123cacc1627ae19ddf3c27a5de5bd67ee4586fbdd6440d9748f8abb483d3e86"},
+    {file = "python_dateutil-2.8.2-py2.py3-none-any.whl", hash = "sha256:961d03dc3453ebbc59dbdea9e4e11c5651520a876d0f4db161e8674aae935da9"},
+]
+six = [
+    {file = "six-1.16.0-py2.py3-none-any.whl", hash = "sha256:8abb2f1d86890a2dfb989f9a77cfcfd3e47c2a354b01111771326f8aa26e0254"},
+    {file = "six-1.16.0.tar.gz", hash = "sha256:1e61c37477a1626458e36f7b1d82aa5c9b094fa4802892072e49de9c60c4c926"},
+]
+typing-extensions = [
+    {file = "typing_extensions-4.2.0-py3-none-any.whl", hash = "sha256:6657594ee297170d19f67d55c05852a874e7eb634f4f753dbd667855e07c1708"},
+    {file = "typing_extensions-4.2.0.tar.gz", hash = "sha256:f1c24655a0da0d1b67f07e17a5e6b2a105894e6824b92096378bb3668ef02376"},
+]

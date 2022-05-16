@@ -2,8 +2,9 @@
 from aws_cdk import (
     Stack,
     aws_lambda as Lambda,
-    aws_apigatewayv2_alpha as APIGW,
-    aws_apigatewayv2_integrations_alpha as Integrations
+    aws_cloudfront as CloudFront,
+    aws_cloudfront_origins as CloudFrontOrigins,
+    aws_s3 as S3,
 )
 import aws_cdk.aws_apigatewayv2_alpha as APIGW
 import aws_cdk.aws_apigatewayv2_integrations_alpha as Integrations
@@ -48,3 +49,8 @@ class InfraStack(Stack):
                 http_api=http_api,
                 integration=integration
             )
+        bucket = S3.Bucket(self, 'bucket')
+        CloudFront.Distribution(self, 'distribution', default_behavior=CloudFront.BehaviorOptions(
+            origin=CloudFrontOrigins.S3Origin()
+        ))
+        

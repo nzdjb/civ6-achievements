@@ -1,0 +1,12 @@
+[GLOBAL]
+pants_version = "2.11.0"
+backend_packages = [
+  "pants.backend.python",
+  "pants.backend.python.lint.black",
+  "pants.backend.python.lint.flake8",
+  "pants.backend.python.lint.isort",
+  "pants.backend.awslambda.python",
+]
+
+[anonymous-telemetry]
+enabled = false

@@ -6,7 +6,7 @@ authors = ["nzdjb <github@2a1b.com>"]
 license = "MIT"
 
 [tool.poetry.dependencies]
-python = "^3.10"
+python = "^3.9"
 funcy = "^1.17"
 requests = "^2.27.1"
 

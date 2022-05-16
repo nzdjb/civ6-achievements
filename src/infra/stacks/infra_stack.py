@@ -5,6 +5,8 @@ from aws_cdk import (
     aws_apigatewayv2_alpha as APIGW,
     aws_apigatewayv2_integrations_alpha as Integrations
 )
+import aws_cdk.aws_apigatewayv2_alpha as APIGW
+import aws_cdk.aws_apigatewayv2_integrations_alpha as Integrations
 from constructs import Construct
 from os import path
 
@@ -13,7 +15,7 @@ class InfraStack(Stack):
     """Infrastructure stack."""
 
     def fxn(self, name: str) -> str:
-        return path.join(path.dirname(path.realpath(__file__)), '..', '..', name)
+        return path.join(path.dirname(path.realpath(__file__)), '..', '..', '..', 'dist', f'src.{name}', 'lambda.zip')
 
 
     def __init__(self, scope: Construct, construct_id: str, **kwargs) -> None:
@@ -23,10 +25,9 @@ class InfraStack(Stack):
             self,
             "function",
             code=Lambda.Code.from_asset(self.fxn('achievements')),
-            handler="main.handler",
+            handler="lambdex_handler.handler",
             runtime=Lambda.Runtime.PYTHON_3_9,
             environment={
-                'PYTHONPATH': './vendor',
                 'STEAM_API_KEY': ''
             }
         )

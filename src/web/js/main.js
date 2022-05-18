@@ -1,4 +1,4 @@
-const API_ADDRESS = 'http://localhost:8080'
+const API_ADDRESS = ''
 
 function render(achievements) {
   $('#achievements').empty();

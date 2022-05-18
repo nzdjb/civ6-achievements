@@ -1,5 +1,6 @@
 """Infrastructure stack."""
 from aws_cdk import (
+    Fn,
     Stack,
     aws_lambda as Lambda,
     aws_cloudfront as CloudFront,
@@ -60,7 +61,14 @@ class InfraStack(Stack):
                 default_behavior=CloudFront.BehaviorOptions(
                     origin=CloudFrontOrigins.S3Origin(bucket),
                 ),
-                default_root_object='index.html'
+                default_root_object='index.html',
+                additional_behaviors={
+                    '/achievements/*': CloudFront.BehaviorOptions(
+                        origin=CloudFrontOrigins.HttpOrigin(
+                            Fn.select(1, Fn.split('://', http_api.api_endpoint))
+                        )
+                    )
+                }
             )
         Deployment.BucketDeployment(
             self,

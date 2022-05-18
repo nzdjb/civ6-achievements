@@ -1,0 +1,63 @@
+body {
+  margin: 0px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+#container {
+  display: flex;
+}
+
+header {
+  height: 100px;
+}
+
+input#hide_achieved:checked ~#achievements div.achieved {
+  display: none;
+}
+
+input#hide_raf:checked ~#achievements div[id^="RAF"] {
+  display: none;
+}
+
+input#hide_vsv:checked ~#achievements div[id^="VSV"] {
+  display: none;
+}
+
+input#hide_royale:checked ~#achievements div[id^="ROYALE"] {
+  display: none;
+}
+
+input#hide_arr:checked ~#achievements div[id^="ARR"] {
+  display: none;
+}
+
+input#only_win_as:checked ~#achievements div:not([data-description*="Win a game as " i], [data-description*="Win a regular game as " i]) {
+  display: none;
+}
+
+div#achievements {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-around;
+}
+
+div.achievement {
+  display: flex;
+  margin: 5px;
+  width: 30%;
+  align-items: center;
+}
+
+div.filtered {
+  display: none;
+}
+
+div.achievement:after {
+  content: attr(data-title)": "attr(data-description)": "attr(data-percentage)"%";
+  margin: 5px;
+}
+
+div.achieved {
+  color: green;
+}

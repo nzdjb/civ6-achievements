@@ -5,6 +5,7 @@ from aws_cdk import (
     aws_cloudfront as CloudFront,
     aws_cloudfront_origins as CloudFrontOrigins,
     aws_s3 as S3,
+    aws_s3_deployment as Deployment,
 )
 import aws_cdk.aws_apigatewayv2_alpha as APIGW
 import aws_cdk.aws_apigatewayv2_integrations_alpha as Integrations
@@ -16,7 +17,10 @@ class InfraStack(Stack):
     """Infrastructure stack."""
 
     def fxn(self, name: str) -> str:
-        return path.join(path.dirname(path.realpath(__file__)), '..', '..', '..', 'dist', f'src.{name}', 'lambda.zip')
+        return path.join(self.root(), 'dist', f'src.{name}', 'lambda.zip')
+
+    def root(self) -> str:
+        return path.join(path.dirname(path.realpath(__file__)), '..', '..', '..')
 
 
     def __init__(self, scope: Construct, construct_id: str, **kwargs) -> None:
@@ -50,7 +54,20 @@ class InfraStack(Stack):
                 integration=integration
             )
         bucket = S3.Bucket(self, 'bucket')
-        CloudFront.Distribution(self, 'distribution', default_behavior=CloudFront.BehaviorOptions(
-            origin=CloudFrontOrigins.S3Origin()
-        ))
-        
+        distribution = CloudFront.Distribution(
+                self,
+                'distribution',
+                default_behavior=CloudFront.BehaviorOptions(
+                    origin=CloudFrontOrigins.S3Origin(bucket),
+                ),
+                default_root_object='index.html'
+            )
+        Deployment.BucketDeployment(
+            self,
+            'web-deployment',
+            destination_bucket=bucket,
+            sources=[
+                Deployment.Source.asset(path.join(self.root(), 'src', 'web'))
+            ],
+            distribution=distribution
+        );

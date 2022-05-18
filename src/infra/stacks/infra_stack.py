@@ -23,7 +23,6 @@ class InfraStack(Stack):
     def root(self) -> str:
         return path.join(path.dirname(path.realpath(__file__)), '..', '..', '..')
 
-
     def __init__(self, scope: Construct, construct_id: str, **kwargs) -> None:
         super().__init__(scope, construct_id, **kwargs)
 
@@ -78,4 +77,4 @@ class InfraStack(Stack):
                 Deployment.Source.asset(path.join(self.root(), 'src', 'web'))
             ],
             distribution=distribution
-        );
+        )

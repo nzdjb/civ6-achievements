@@ -1,9 +1,8 @@
-const API_ADDRESS = ''
+const API_ADDRESS = '';
 
 function render(achievements) {
   $('#achievements').empty();
-  achievementsList = JSON.parse(achievements);
-  achievementsList.forEach(e => {
+  achievements.forEach(e => {
     const icon = e.achieved == '1' ? e.icon : e.icongray;
     $('#achievements').append(`<div id="${e.apiname}"></div>`);
     achievement = $(`#${e.apiname}`);
@@ -28,7 +27,14 @@ function filter_achievements() {
 
 function retrieve_achievements_for_player() {
   const player_id = $('#player_id').val();
-  $.get(API_ADDRESS + '/achievements/' + player_id)
+  const game_id = $('#game_id').val();
+  if(game_id == '') {
+    $('#achievements').text('Game ID is required.');
+    return false;
+  }
+  const segments = [API_ADDRESS, 'achievements', game_id];
+  if(player_id != '') segments.push(player_id);
+  $.get(segments.join('/'))
     .done(render)
     .fail(() => $('#achievements').text('Achievements failed to retrieve.'));
 }
@@ -36,6 +42,7 @@ function retrieve_achievements_for_player() {
 function readyFn() {
   $('#text_filter').on('input', filter_achievements);
   $('#player_id').on('input', retrieve_achievements_for_player);
+  $('#game_id').on('input', retrieve_achievements_for_player);
   retrieve_achievements_for_player();
 }
 

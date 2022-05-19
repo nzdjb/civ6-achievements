@@ -1,0 +1,14 @@
+{
+  "name": "steam-achievements",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "nzdjb <github@2a1b.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^17.0.34",
+    "typescript": "^4.6.4"
+  },
+  "scripts": {
+    "build": "tsc"
+  }
+}

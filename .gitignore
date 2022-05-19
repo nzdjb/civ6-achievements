@@ -158,3 +158,5 @@ cdk.out
 .vscode
 
 vendor
+
+node_modules

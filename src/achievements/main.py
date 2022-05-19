@@ -17,7 +17,8 @@ def handler(event, context):
 
 
 def response(code=200, message=''):
-    return dumps({'responseCode': code, 'message': message})
+    # return dumps({'responseCode': code, 'message': message})
+    return message
 
 
 def achievements(app_id, steam_id=None):

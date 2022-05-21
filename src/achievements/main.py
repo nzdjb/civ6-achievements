@@ -54,7 +54,6 @@ def achievements(app_id, steam_id=None):
 def schema_map(app_id):
     api = API_BASE + 'ISteamUserStats/GetSchemaForGame/v0002'
     schema_resp = requests.get(api, params=params(app_id))
-    print(schema_resp)
     schema = loads(schema_resp.text) \
         .get('game') \
         .get('availableGameStats') \

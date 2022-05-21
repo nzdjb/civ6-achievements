@@ -46,7 +46,8 @@ class InfraStack(Stack):
 
         function = Lambda.Function(
             self,
-            "function",
+            "function",   
+            function_name="steam-achievements-achievements",
             code=Lambda.Code.from_asset(self.fxn('achievements')),
             handler="lambdex_handler.handler",
             runtime=Lambda.Runtime.PYTHON_3_9,

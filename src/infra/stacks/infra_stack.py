@@ -7,11 +7,12 @@ from aws_cdk import (
     aws_cloudfront_origins as CloudFrontOrigins,
     aws_s3 as S3,
     aws_s3_deployment as Deployment,
+    aws_ssm as SSM
 )
 import aws_cdk.aws_apigatewayv2_alpha as APIGW
 import aws_cdk.aws_apigatewayv2_integrations_alpha as Integrations
 from constructs import Construct
-from os import path
+from os import path, getenv
 
 
 class InfraStack(Stack):
@@ -26,6 +27,23 @@ class InfraStack(Stack):
     def __init__(self, scope: Construct, construct_id: str, **kwargs) -> None:
         super().__init__(scope, construct_id, **kwargs)
 
+        parameter_name = '/steam_achievements/API_KEY'
+        if getenv('STEAM_API_KEY'):
+            parameter_value = getenv('STEAM_API_KEY')
+        else:
+            parameter_value = SSM.StringParameter.from_string_parameter_attributes(
+                self,
+                'retrieved_api_key_parameter', 
+                parameter_name=parameter_name,
+            ).string_value
+
+        parameter = SSM.StringParameter(
+            self,
+            'api_key_parameter',
+            parameter_name=parameter_name,
+            string_value=parameter_value
+        )
+
         function = Lambda.Function(
             self,
             "function",
@@ -33,9 +51,10 @@ class InfraStack(Stack):
             handler="lambdex_handler.handler",
             runtime=Lambda.Runtime.PYTHON_3_9,
             environment={
-                'STEAM_API_KEY': ''
+                'STEAM_API_PARAMETER': parameter_name
             }
         )
+        parameter.grant_read(function)
 
         http_api = APIGW.HttpApi(self, 'api', api_name='achievements_api')
 

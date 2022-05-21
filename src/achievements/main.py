@@ -7,6 +7,7 @@ from functools import cache
 from funcy import omit
 import requests
 
+import boto3
 
 def handler(event, context):
     parameters = event.get('pathParameters')
@@ -34,6 +35,7 @@ def achievements(app_id, steam_id=None):
 def schema_map(app_id):
     api = API_BASE + 'ISteamUserStats/GetSchemaForGame/v0002'
     schema_resp = requests.get(api, params=params(app_id))
+    print(schema_resp)
     schema = loads(schema_resp.text).get('game').get('availableGameStats').get('achievements')
     return create_map('name', schema)
 
@@ -63,7 +65,11 @@ def create_map(index, list):
 
 @cache
 def api_key():
-    return getenv('STEAM_API_KEY')
+    param = getenv('STEAM_API_PARAMETER')
+    return boto3.client('ssm') \
+        .get_parameter(Name=param) \
+        .get('Parameter') \
+        .get('Value')
 
 
 API_BASE = 'http://api.steampowered.com/'

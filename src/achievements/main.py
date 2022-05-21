@@ -48,7 +48,7 @@ def stats_map(app_id):
 
 def params(app_id):
     return {
-        'key': STEAM_API_KEY,
+        'key': api_key(),
         'appid': app_id
     }
 
@@ -61,5 +61,9 @@ def create_map(index, list):
     return {entry[index]: omit(entry, index) for entry in list}
 
 
+@cache
+def api_key():
+    return getenv('STEAM_API_KEY')
+
+
 API_BASE = 'http://api.steampowered.com/'
-STEAM_API_KEY = getenv('STEAM_API_KEY')

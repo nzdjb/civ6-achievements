@@ -15,6 +15,7 @@ from aws_cdk import (
 import aws_cdk.aws_apigatewayv2_alpha as APIGW
 import aws_cdk.aws_apigatewayv2_integrations_alpha as Integrations
 from constructs import Construct
+from util.env_string_parameter import EnvStringParameter
 from os import path, getenv
 
 
@@ -33,21 +34,8 @@ class InfraStack(Stack):
         domain_name = scope.node.try_get_context("domain_name")
         hosted_zone_name = scope.node.try_get_context("hosted_zone_name")
 
-        parameter_name = "/steam_achievements/API_KEY"
-        if getenv("STEAM_API_KEY"):
-            parameter_value = getenv("STEAM_API_KEY")
-        else:
-            parameter_value = SSM.StringParameter.from_string_parameter_attributes(
-                self,
-                "retrieved_api_key_parameter",
-                parameter_name=parameter_name,
-            ).string_value
-
-        parameter = SSM.StringParameter(
-            self,
-            "api_key_parameter",
-            parameter_name=parameter_name,
-            string_value=parameter_value,
+        api_key = EnvStringParameter(
+            self, "api_key_parameter", "/steam_achievements/API_KEY", "STEAM_API_KEY"
         )
 
         function = Lambda.Function(
@@ -57,9 +45,9 @@ class InfraStack(Stack):
             code=Lambda.Code.from_asset(self.fxn("achievements")),
             handler="lambdex_handler.handler",
             runtime=Lambda.Runtime.PYTHON_3_9,
-            environment={"STEAM_API_PARAMETER": parameter_name},
+            environment={"STEAM_API_PARAMETER": api_key.parameter_name},
         )
-        parameter.grant_read(function)
+        api_key.grant_read(function)
 
         http_api = APIGW.HttpApi(self, "api", api_name="achievements_api")
 

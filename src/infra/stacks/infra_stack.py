@@ -7,16 +7,16 @@ from aws_cdk import (
     aws_cloudfront_origins as CloudFrontOrigins,
     aws_s3 as S3,
     aws_s3_deployment as Deployment,
-    aws_ssm as SSM,
     aws_route53 as Route53,
     aws_route53_targets as Targets,
     aws_certificatemanager as ACM,
+    aws_apigatewayv2_alpha as APIGW,
+    aws_apigatewayv2_integrations as Integrations,
 )
-import aws_cdk.aws_apigatewayv2_alpha as APIGW
-import aws_cdk.aws_apigatewayv2_integrations_alpha as Integrations
-from constructs import Construct
+from aws_cdk.aws_cloudfront import ViewerProtocolPolicy as VPP
 from util.env_string_parameter import EnvStringParameter
-from os import path, getenv
+from constructs import Construct
+from os import path
 
 
 class InfraStack(Stack):
@@ -86,7 +86,7 @@ class InfraStack(Stack):
             "distribution",
             default_behavior=CloudFront.BehaviorOptions(
                 origin=CloudFrontOrigins.S3Origin(bucket),
-                viewer_protocol_policy=CloudFront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
+                viewer_protocol_policy=VPP.REDIRECT_TO_HTTPS,
             ),
             default_root_object="index.html",
             additional_behaviors={
@@ -94,7 +94,7 @@ class InfraStack(Stack):
                     origin=CloudFrontOrigins.HttpOrigin(
                         Fn.select(1, Fn.split("://", http_api.api_endpoint))
                     ),
-                    viewer_protocol_policy=CloudFront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
+                    viewer_protocol_policy=VPP.REDIRECT_TO_HTTPS,
                 )
             },
             domain_names=[domain_name] if domain_name is not None else None,

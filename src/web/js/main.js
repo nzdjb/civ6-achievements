@@ -9,7 +9,7 @@ function render(achievements) {
     achievement.append(`<img src='${icon}'>`);
     achievement.addClass('achievement');
     achievement.attr("data-title", e.displayName);
-    achievement.attr("data-description", e.description.replace(/\.$/, ''));
+    achievement.attr("data-description", e.description?.replace(/\.$/, ''));
     achievement.attr('data-percentage', Math.round(e.percent * 1000)/1000)
     if(e.achieved == '1') achievement.addClass('achieved');
     if(e.hidden == '1') achievement.addClass('hidden');

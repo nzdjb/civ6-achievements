@@ -31,8 +31,8 @@ class InfraStack(Stack):
     def __init__(self, scope: Construct, construct_id: str, **kwargs) -> None:
         super().__init__(scope, construct_id, **kwargs)
 
-        domain_name = scope.node.try_get_context("domain_name")
-        hosted_zone_name = scope.node.try_get_context("hosted_zone_name")
+        domain_name = self.node.try_get_context("domain_name")
+        hosted_zone_name = self.node.try_get_context("hosted_zone_name")
 
         api_key = EnvStringParameter(
             self, "api_key_parameter", "/steam_achievements/API_KEY", "STEAM_API_KEY"

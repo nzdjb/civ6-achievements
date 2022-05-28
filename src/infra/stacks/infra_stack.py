@@ -11,7 +11,7 @@ from aws_cdk import (
     aws_route53_targets as Targets,
     aws_certificatemanager as ACM,
     aws_apigatewayv2_alpha as APIGW,
-    aws_apigatewayv2_integrations as Integrations,
+    aws_apigatewayv2_integrations_alpha as Integrations,
 )
 from aws_cdk.aws_cloudfront import ViewerProtocolPolicy as VPP
 from util.env_string_parameter import EnvStringParameter

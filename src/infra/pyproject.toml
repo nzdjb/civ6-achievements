@@ -10,10 +10,10 @@ python = "^3.10"
 exceptiongroup = "^1.0.0-rc.5"
 
 [tool.poetry.dev-dependencies]
-constructs = "^10.1.7"
+constructs = "*"
+aws-cdk-lib = "^2"
 "aws-cdk.aws-apigatewayv2-alpha" = "^2.24.1-alpha.0"
 "aws-cdk.aws-apigatewayv2-integrations-alpha" = "^2.24.1-alpha.0"
-aws-cdk-lib = "^2.24.1"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
